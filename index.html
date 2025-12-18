@@ -80,6 +80,28 @@
             border-bottom-color: #00e800;
             background-color: rgba(0, 232, 0, 0.05);
         }
+
+        /* Linha do Tempo Vertical */
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            border-left: 2px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 2rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -9px;
+            top: 0;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #06192a;
+            border: 2px solid #00e800;
+        }
+        .timeline-item:last-child {
+            border-left: none;
+        }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
@@ -91,7 +113,7 @@
                 <img src="https://raw.githubusercontent.com/EcossistemaLive/Dashboard_goianita/refs/heads/main/Logo%20Live-26.png" alt="Live Consultoria" class="h-10 w-auto">
                 <div class="h-8 w-px bg-white/20 hidden md:block"></div>
                 <h1 class="text-xl font-bold tracking-tight text-white">
-                    Briefing Técnico <span class="text-live-accent">Casa Goianita</span>
+                    Briefing Técnico Detalhado <span class="text-live-accent">Casa Goianita</span>
                 </h1>
             </div>
             <div class="text-xs font-mono text-live-subtle uppercase tracking-widest border border-live-accent/30 px-3 py-1 rounded-full">
@@ -108,8 +130,11 @@
             <button onclick="switchTab('visao-geral')" id="btn-visao-geral" class="tab-btn active px-6 py-3 text-sm font-medium hover:text-live-accent whitespace-nowrap">
                 Visão Geral
             </button>
-            <button onclick="switchTab('requisitos')" id="btn-requisitos" class="tab-btn px-6 py-3 text-sm font-medium hover:text-live-accent whitespace-nowrap">
-                Levantamento de Requisitos (Listas)
+            <button onclick="switchTab('jornada-noiva')" id="btn-jornada-noiva" class="tab-btn px-6 py-3 text-sm font-medium hover:text-live-accent whitespace-nowrap">
+                Jornada do Anfitrião (Detalhada)
+            </button>
+            <button onclick="switchTab('jornada-convidado')" id="btn-jornada-convidado" class="tab-btn px-6 py-3 text-sm font-medium hover:text-live-accent whitespace-nowrap">
+                Jornada do Convidado (Detalhada)
             </button>
             <button onclick="switchTab('integracoes')" id="btn-integracoes" class="tab-btn px-6 py-3 text-sm font-medium hover:text-live-accent whitespace-nowrap">
                 Matriz de Integrações
@@ -172,120 +197,209 @@
                 </div>
             </div>
 
-            <!-- ABA 2: Levantamento de Requisitos (CONTEÚDO PRINCIPAL) -->
-            <div id="requisitos" class="tab-content fade-in hidden">
-                <div class="grid gap-8">
+            <!-- ABA 2: Jornada do Anfitrião (DETALHADA) -->
+            <div id="jornada-noiva" class="tab-content fade-in hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     
-                    <!-- Módulo 1 -->
-                    <section class="bg-live-card border border-white/10 rounded-xl p-8 relative overflow-hidden group hover:border-live-accent/30 transition-colors">
-                        <div class="absolute top-0 right-0 p-4 opacity-10 text-9xl font-bold select-none group-hover:text-live-accent transition-colors">01</div>
+                    <!-- Coluna Esquerda: O Processo -->
+                    <div class="lg:col-span-2 space-y-8">
+                        
+                        <div class="bg-live-card border border-white/10 rounded-xl p-8">
+                            <h2 class="text-2xl font-bold text-live-accent mb-6 flex items-center gap-3">
+                                <span class="bg-live-accent/10 p-2 rounded-lg">👰</span> Passo a Passo: Criação e Gestão
+                            </h2>
+
+                            <!-- Timeline -->
+                            <div class="ml-2 mt-4">
+                                
+                                <!-- Passo 1 -->
+                                <div class="timeline-item">
+                                    <h3 class="text-lg font-bold text-white">Passo 1: Pré-Cadastro (Identificação)</h3>
+                                    <p class="text-live-muted text-sm mt-1 font-serif">A noiva deve criar um "Cadastro de Pessoa" antes de qualquer coisa.</p>
+                                    <ul class="list-disc pl-5 mt-2 text-sm text-live-subtle space-y-1">
+                                        <li><strong>Dados:</strong> Nome, CPF, Telefone, E-mail, Senha.</li>
+                                        <li class="text-red-400 font-bold border border-red-500/30 bg-red-500/10 p-2 rounded mt-2">
+                                            ⚠️ Ponto de Falha Atual: O sistema aceita e-mails inválidos (ex: "gmai.com") e não permite edição posterior.
+                                            <br><span class="text-white font-normal">Solução Obrigatória: Implementar verificação de e-mail (Token ou Link) antes de liberar a criação da lista.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Passo 2 -->
+                                <div class="timeline-item">
+                                    <h3 class="text-lg font-bold text-white">Passo 2: Configuração da Lista (Setup)</h3>
+                                    <p class="text-live-muted text-sm mt-1 font-serif">Definição dos parâmetros logísticos do evento.</p>
+                                    <div class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="bg-black/20 p-3 rounded">
+                                            <span class="block text-live-accent text-xs font-bold uppercase">Tipos de Evento</span>
+                                            <ul class="text-sm text-live-muted mt-1">
+                                                <li>Casamento</li>
+                                                <li>Chá de Panela / Bar</li>
+                                                <li>Open House</li>
+                                                <li>Bodas (Campo Manual)</li>
+                                            </ul>
+                                        </div>
+                                        <div class="bg-black/20 p-3 rounded">
+                                            <span class="block text-live-accent text-xs font-bold uppercase">Regras de Negócio (Datas)</span>
+                                            <ul class="text-sm text-live-muted mt-1">
+                                                <li><strong>Retirada:</strong> Mínimo D+7 dias úteis.</li>
+                                                <li><strong>Entrega:</strong> Mínimo D+7 dias úteis (tempo de transferência de estoque).</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-yellow-400 mt-2 bg-yellow-400/10 p-2 rounded border border-yellow-400/20">
+                                        ℹ️ A noiva pode usar a função <strong>"Espiar"</strong> para ver itens de uma lista pronta (ex: Lista de Chá) antes de selecioná-la para seu Casamento.
+                                    </p>
+                                </div>
+
+                                <!-- Passo 3 -->
+                                <div class="timeline-item">
+                                    <h3 class="text-lg font-bold text-white">Passo 3: Seleção de Produtos</h3>
+                                    <p class="text-live-muted text-sm mt-1 font-serif">Customização da lista item a item.</p>
+                                    <ul class="list-disc pl-5 mt-2 text-sm text-live-subtle space-y-2">
+                                        <li><strong>Lista Pronta:</strong> Carrega sugestão da loja (Baseada em SKUs geridos manualmente pela Karinne).</li>
+                                        <li><strong>Lista Personalizada:</strong> Noiva navega no e-commerce geral.</li>
+                                        <li class="text-red-400 font-bold border border-red-500/30 bg-red-500/10 p-2 rounded">
+                                            ⚠️ UX Crítico: Ao clicar em "Adicionar à Lista" na vitrine, a página recarrega e volta ao topo, perdendo a posição de scroll. Isso causa alta desistência.
+                                            <br><span class="text-white font-normal">Solução: Ação via AJAX (sem reload) ou abrir produto em modal.</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <!-- Passo 4 -->
+                                <div class="timeline-item">
+                                    <h3 class="text-lg font-bold text-white">Passo 4: Gestão Pós-Criação</h3>
+                                    <p class="text-live-muted text-sm mt-1 font-serif">Acompanhamento e edições.</p>
+                                    <ul class="list-disc pl-5 mt-2 text-sm text-live-subtle space-y-1">
+                                        <li><strong>Relatório:</strong> "Compras Realizadas" (Mostra quem comprou, o quê e onde - Loja ou Site).</li>
+                                        <li><strong>Edição de Dados:</strong> Se a noiva mudar data/endereço após criação, o Admin <strong>DEVE</strong> ser notificado (hoje isso não ocorre e gera erro de entrega).</li>
+                                        <li><strong>Exclusão:</strong> Implementar "Soft Delete". A noiva vê como excluída, mas o Admin mantém histórico para trocas.</li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Coluna Direita: Painel de Controle -->
+                    <div class="space-y-8">
+                        <div class="bg-live-card border border-white/10 rounded-xl p-6">
+                            <h3 class="text-lg font-bold text-white mb-4">Carteira Digital (Wallet)</h3>
+                            <p class="text-sm text-live-muted mb-4 font-serif">
+                                Solução para eliminar os múltiplos "Vales de Papel" que as noivas perdem.
+                            </p>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between bg-black/30 p-3 rounded border border-white/5">
+                                    <span class="text-sm text-live-subtle">Saldo Atual</span>
+                                    <span class="text-live-accent font-bold font-mono">R$ 1.250,00</span>
+                                </div>
+                                <div class="text-xs text-live-subtle space-y-1">
+                                    <p><strong>Origem dos Créditos:</strong></p>
+                                    <ul class="list-disc pl-4">
+                                        <li>Trocas de produtos</li>
+                                        <li>Itens indisponíveis (Voucher Auto)</li>
+                                        <li>Presentes convertidos em crédito</li>
+                                    </ul>
+                                </div>
+                                <div class="bg-live-accent/10 p-3 rounded text-xs text-live-accent border border-live-accent/20">
+                                    <strong>Validade:</strong> 1 Ano a partir da emissão do crédito.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-live-card border border-white/10 rounded-xl p-6">
+                            <h3 class="text-lg font-bold text-white mb-4">Política de Trocas</h3>
+                            <ul class="list-disc pl-5 text-sm text-live-muted space-y-2">
+                                <li><strong>Prazo:</strong> 30 dias após a data da compra (Emissão da NF), não do evento.</li>
+                                <li><strong>Condição:</strong> Embalagem original e identificação da loja.</li>
+                                <li><strong>Troca Total:</strong> Noiva pode devolver tudo e converter em crédito integral.</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ABA 3: Jornada do Convidado (DETALHADA) -->
+            <div id="jornada-convidado" class="tab-content fade-in hidden">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+                    <!-- Coluna 1: Busca e Compra -->
+                    <section class="bg-live-card border border-white/10 rounded-xl p-8 h-full">
                         <h2 class="text-2xl font-bold text-live-accent mb-6 flex items-center gap-3">
-                            <span class="bg-live-accent/10 p-2 rounded-lg">📋</span> Jornada do Anfitrião
+                            <span class="bg-live-accent/10 p-2 rounded-lg">🔍</span> Busca e Seleção
                         </h2>
                         
                         <div class="space-y-6">
                             <div>
-                                <h3 class="text-lg font-bold text-white mb-2">1.1 Cadastro de Usuário (Crítico)</h3>
-                                <ul class="list-disc pl-5 text-live-muted space-y-2 font-serif">
-                                    <li><strong class="text-white">Regra de Negócio:</strong> O usuário deve criar um "Cadastro Pessoal" antes de criar a lista.</li>
-                                    <li><strong class="text-white">Requisito Técnico:</strong> Implementar Validação de E-mail Obrigatória (dupla confirmação ou link de ativação).<br><span class="text-xs opacity-70">Por que? Atualmente, noivas digitam e-mail errado (ex: "gmai.com") e perdem acesso a notificações.</span></li>
-                                </ul>
-                            </div>
-                            
-                            <div>
-                                <h3 class="text-lg font-bold text-white mb-2">1.2 Criação da Lista (Setup)</h3>
-                                <ul class="list-disc pl-5 text-live-muted space-y-2 font-serif">
-                                    <li><strong class="text-white">Campos Obrigatórios (Hard Block):</strong> Nome do Casal, Data do Evento, Endereço Completo (com validação CEP) OU Data de Retirada.</li>
-                                    <li><strong class="text-white">Regras de Datas:</strong> Retirada (Min D+7 dias úteis), Entrega (Bloqueio de datas passadas).</li>
-                                    <li>
-                                        <strong class="text-white">Nova Funcionalidade (Wallet):</strong> Checkbox 
-                                        <code class="bg-black/30 px-2 py-1 rounded text-live-accent text-sm font-mono">[ ] Desejo receber o valor em Crédito</code>.
-                                        Se marcado, não gera ordem logística, apenas crédito financeiro.
-                                    </li>
-                                </ul>
+                                <h3 class="font-bold text-white">1. Encontrando a Lista</h3>
+                                <p class="text-sm text-live-muted mt-1 font-serif">O convidado não sabe o "ID da Lista". A busca deve ser intuitiva.</p>
+                                <div class="flex gap-2 mt-2">
+                                    <span class="bg-black/40 text-live-subtle text-xs px-2 py-1 rounded border border-white/10">Nome dos Noivos</span>
+                                    <span class="bg-black/40 text-live-subtle text-xs px-2 py-1 rounded border border-white/10">Data do Evento</span>
+                                </div>
                             </div>
 
                             <div>
-                                <h3 class="text-lg font-bold text-white mb-2">1.3 Gestão e Edição</h3>
-                                <ul class="list-disc pl-5 text-live-muted space-y-2 font-serif">
-                                    <li><strong class="text-white">Alerta de Alteração:</strong> Se a noiva alterar Data ou Endereço após criação, disparar notificação para o Admin.</li>
-                                    <li><strong class="text-white">Soft Delete:</strong> Usuário não pode excluir lista se houver vendas vinculadas. Apenas inativar visualização pública, mantendo histórico.</li>
+                                <h3 class="font-bold text-white">2. Visualização dos Itens</h3>
+                                <p class="text-sm text-live-muted mt-1 font-serif">Lista exibe foto, nome, preço e status.</p>
+                                <ul class="list-disc pl-5 mt-2 text-sm text-live-muted">
+                                    <li><strong>Status "Comprado":</strong> Se a quantidade desejada foi atingida, o botão de compra muda para aviso ou bloqueia (configurável).</li>
+                                    <li><strong>Preço:</strong> Deve espelhar a tabela vigente (atenção às promoções da loja física).</li>
                                 </ul>
+                            </div>
+
+                            <div class="bg-red-500/10 border border-red-500/30 p-4 rounded-lg mt-4">
+                                <h3 class="text-sm font-bold text-red-400 mb-1">⚠️ Problema de Duplicidade (Omnichannel)</h3>
+                                <p class="text-xs text-live-subtle">
+                                    Hoje, convidados compram itens repetidos (ex: 10 boleiras iguais) porque a venda na loja física não dá baixa no site em tempo real.
+                                    <br><strong>Requisito:</strong> Sincronização de baixa de estoque < 5 minutos entre PDV e Site.
+                                </p>
                             </div>
                         </div>
                     </section>
 
-                    <!-- Módulo 2 -->
-                    <section class="bg-live-card border border-white/10 rounded-xl p-8 relative overflow-hidden group hover:border-live-accent/30 transition-colors">
-                         <div class="absolute top-0 right-0 p-4 opacity-10 text-9xl font-bold select-none group-hover:text-live-accent transition-colors">02</div>
+                    <!-- Coluna 2: Checkout e Logística -->
+                    <section class="bg-live-card border border-white/10 rounded-xl p-8 h-full">
                         <h2 class="text-2xl font-bold text-live-accent mb-6 flex items-center gap-3">
-                            <span class="bg-live-accent/10 p-2 rounded-lg">🛒</span> Jornada do Convidado
+                            <span class="bg-live-accent/10 p-2 rounded-lg">🚚</span> Checkout Inteligente
                         </h2>
 
                         <div class="space-y-6">
                             <div>
-                                <h3 class="text-lg font-bold text-white mb-2">2.1 Busca Inteligente</h3>
-                                <p class="text-live-muted font-serif mb-2">Filtros: Nome dos Noivos, Data do Evento. <br>Privacidade: Não expor dados sensíveis.</p>
-                            </div>
-
-                            <div class="bg-red-500/10 border border-red-500/30 p-4 rounded-lg">
-                                <h3 class="text-lg font-bold text-red-400 mb-2 flex items-center gap-2">⚠️ Regra de Endereçamento (Gargalo Crítico)</h3>
-                                <p class="text-sm text-live-muted mb-3 font-serif">Atualmente, o checkout puxa o endereço do cadastro do convidado. Requisito Mandatório:</p>
-                                <ul class="list-disc pl-5 text-live-muted text-sm space-y-1">
-                                    <li><strong>Sobrescrever Automática:</strong> Forçar <em>Shipping Address</em> para o endereço da Lista da Noiva.</li>
-                                    <li><strong>Visualização:</strong> Convidado vê apenas "Entregar no endereço cadastrado pelos noivos".</li>
-                                </ul>
+                                <h3 class="font-bold text-white">3. Regra de Endereçamento (Mandatório)</h3>
+                                <p class="text-sm text-live-muted mt-1 font-serif">
+                                    O maior gargalo operacional atual. O sistema VTEX hoje puxa o endereço do convidado para a entrega.
+                                </p>
+                                <div class="bg-live-accent/10 p-4 rounded-lg border border-live-accent/20 mt-3">
+                                    <h4 class="text-live-accent text-sm font-bold mb-2">Lógica Obrigatória do Novo Sistema:</h4>
+                                    <ol class="list-decimal pl-5 text-xs text-white space-y-2">
+                                        <li>Identificar que o item pertence a uma <strong>Lista de Presentes</strong>.</li>
+                                        <li>Ignorar o <em>Shipping Address</em> inserido pelo convidado.</li>
+                                        <li><strong>Sobrescrever</strong> automaticamente com o endereço cadastrado na Lista da Noiva (ID da Lista).</li>
+                                        <li>Exibir para o convidado apenas: <em>"Endereço de entrega: Conforme cadastro dos noivos"</em> (Proteção de dados).</li>
+                                    </ol>
+                                </div>
                             </div>
 
                             <div>
-                                <h3 class="text-lg font-bold text-white mb-2">2.3 Sincronização Omnichannel</h3>
-                                <ul class="list-disc pl-5 text-live-muted space-y-2 font-serif">
-                                    <li><strong>Venda Online:</strong> Decrementa estoque geral + Marca item "Comprado" na lista imediatamente.</li>
-                                    <li><strong>Venda Física:</strong> Vendedor dá baixa no PDV -> Baixa no site em < 5 minutos.</li>
-                                    <li><strong>Alerta de Duplicidade:</strong> Se qty atingida, exibir modal: <em>"Item já presenteado. Comprar mesmo assim?"</em></li>
+                                <h3 class="font-bold text-white">4. Tratativa de Indisponibilidade</h3>
+                                <p class="text-sm text-live-muted mt-1 font-serif">
+                                    Se o site vender algo que não tem no estoque físico (furo de estoque):
+                                </p>
+                                <ul class="list-disc pl-5 mt-2 text-sm text-live-muted">
+                                    <li><strong>Não gerar nota de entrega física.</strong></li>
+                                    <li>Converter automaticamente o valor em <strong>Crédito na Wallet</strong> da noiva.</li>
+                                    <li>Notificar a noiva: <em>"Você ganhou um presente! O item X foi convertido em crédito para você escolher."</em></li>
                                 </ul>
                             </div>
                         </div>
-                    </section>
-
-                    <!-- Módulo 3 & 4 (Grid) -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        <!-- Estoque -->
-                        <section class="bg-live-card border border-white/10 rounded-xl p-8 hover:border-live-accent/30 transition-colors">
-                            <h2 class="text-xl font-bold text-live-accent mb-4">📦 Estoque & Logística</h2>
-                            <ul class="list-disc pl-5 text-live-muted space-y-3 font-serif text-sm">
-                                <li><strong>Regra de Ouro:</strong> O e-commerce não pode vender o que não existe fisicamente (salvo modalidade Crédito).</li>
-                                <li><strong>Integração ERP:</strong> Consultar <strong>Olist</strong>/Pmenu antes do <em>Add to Cart</em>.</li>
-                                <li><strong>Fallback:</strong> Se vender sem estoque, converter auto em Voucher para noiva.</li>
-                                <li><strong>Expiração:</strong> Lista disponível até 3 meses pós-evento. Após isso, arquivar auto.</li>
-                            </ul>
-                        </section>
-
-                        <!-- Financeiro -->
-                        <section class="bg-live-card border border-white/10 rounded-xl p-8 hover:border-live-accent/30 transition-colors">
-                            <h2 class="text-xl font-bold text-live-accent mb-4">💳 Financeiro (Wallet)</h2>
-                            <ul class="list-disc pl-5 text-live-muted space-y-3 font-serif text-sm">
-                                <li><strong>Fim dos Vales de Papel:</strong> Centralizar em Painel "Meus Créditos".</li>
-                                <li><strong>Entradas:</strong> Devoluções, Trocas, Itens Indisponíveis, Presentes convertidos.</li>
-                                <li><strong>Saídas:</strong> Compras no site ou QR Code para uso na loja física.</li>
-                                <li><strong>Política de Trocas:</strong> 30 dias após data da compra (NF). Exceção: Troca total de lista gera crédito integral.</li>
-                            </ul>
-                        </section>
-                    </div>
-
-                    <!-- Alertas UX -->
-                    <section class="bg-live-card border-l-4 border-red-500 bg-gradient-to-r from-red-900/20 to-transparent p-6 rounded-r-xl">
-                        <h2 class="text-xl font-bold text-white mb-4">⚠️ Alertas de UX e Bugs Conhecidos</h2>
-                        <ul class="list-disc pl-5 text-live-muted space-y-2 font-serif text-sm">
-                            <li><strong>Bug de Navegação:</strong> "Adicionar à Lista" recarrega página e perde scroll. <strong>Correção:</strong> Usar AJAX/Fetch.</li>
-                            <li><strong>Bug de SKUs:</strong> Catálogo físico tem SKUs diferentes do online. Necessária tabela De/Para ou unificação no ERP.</li>
-                        </ul>
                     </section>
 
                 </div>
             </div>
 
-            <!-- ABA 3: Integrações -->
+            <!-- ABA 4: Integrações -->
             <div id="integracoes" class="tab-content fade-in hidden">
                 <div class="bg-live-card border border-white/10 rounded-xl p-8">
                     <h2 class="text-2xl font-bold text-white mb-6">Matriz de Integrações</h2>
